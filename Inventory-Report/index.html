@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inventory Report | SamanthaJM</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/e96c3f3ee3.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="icon" href="/img/icon.svg" />
+    <style type="text/css">
+      .table-responsive {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Inventory Report</h2>
+          <form>
+            <div class="form-group">
+              <label for="fromDate">From:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="fromDate"
+                name="fromDate"
+              />
+            </div>
+            <div class="form-group">
+              <label for="toDate">To:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="toDate"
+                name="toDate"
+              />
+            </div>
+            <button type="button" class="btn btn-primary" onclick="getData()">
+              Submit
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="printTable()"
+            >
+              Print Table
+            </button>
+          </form>
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Product Name</th>
+                  <th>Expiration Date</th>
+                  <th>Quantity</th>
+                  <th>Brand</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      function getData() {
+        var fromDate = $("#fromDate").val();
+        var toDate = $("#toDate").val();
+        $.ajax({
+          url: "getData.php",
+          method: "POST",
+          data: { fromDate: fromDate, toDate: toDate },
+          dataType: "json",
+          success: function (data) {
+            $("#dataTable tbody").empty();
+            if (data.length > 0) {
+              $.each(data, function (key, value) {
+                var row = "<tr>";
+                row += "<td>" + value.id + "</td>";
+                row += "<td>" + value.product_name + "</td>";
+                row += "<td>" + value.expiration_date + "</td>";
+                row += "<td>" + value.quantity + "</td>";
+                row += "<td>" + value.brand + "</td>";
+                row += "<td>" + value.category + "</td>";
+                row += "<td>" + value.status + "</td>";
+                row += "</tr>";
+                $("#dataTable tbody").append(row);
+              });
+            } else {
+              var row =
+                "<tr><td colspan='7' class='text-center'>No data available</td></tr>";
+              $("#dataTable tbody").append(row);
+            }
+          },
+        });
+      }
+
+      function printTable() {
+        var fromDate = $("#fromDate").val();
+        var toDate = $("#toDate").val();
+        var printContent =
+          "<h2>Date Range: " + fromDate + " to " + toDate + "</h2>";
+        printContent += document.getElementById("dataTable").outerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContent;
+        window.print();
+        document.body.innerHTML = originalContents;
+      }
+    </script>
+  </body>
+</html>

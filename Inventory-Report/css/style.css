@@ -1,0 +1,17 @@
+.container {
+  margin-top: 50px;
+}
+
+@media print {
+  .print-header {
+    display: block !important;
+  }
+
+  .container {
+    margin-top: 0;
+  }
+
+  button {
+    display: none;
+  }
+}
