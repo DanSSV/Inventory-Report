@@ -11,8 +11,8 @@
         if (data.length > 0) {
           $.each(data, function (key, value) {
             var row = "<tr>";
-            row += "<td>" + value.id + "</td>";
-            row += "<td>" + value.product + "</td>";
+            row += "<td>" + value.product_id + "</td>";
+            row += "<td>" + value.product_name + "</td>";
 
             var expirationDate = new Date(value.expiration);
             var today = new Date();
@@ -25,14 +25,14 @@
 
 
             if (value.stock < 6) {
-              row += "<td class='text-danger'>" + value.stock + "</td>";
+              row += "<td class='text-danger'>" + value.quantity + "</td>";
             } else {
-              row += "<td>" + value.stock + "</td>";
+              row += "<td>" + value.quantity + "</td>";
             }
 
 
-            row += "<td>" + value.brand + "</td>";
-            row += "<td>" + value.category + "</td>";
+            row += "<td>" + value.brand_id + "</td>";
+            row += "<td>" + value.categories_id + "</td>";
 
 
             if (value.status == "Available") {

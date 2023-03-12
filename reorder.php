@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
+$servername = "127.0.0.1";
 $username = "root";
-$password = "";
-$dbname = "sale";
+$password = "apol09212001";
+$dbname = "stocks";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "UPDATE products SET stock = stock + 10 WHERE stock < 6";
+$sql = "UPDATE product SET quantity = quantity + 10 WHERE quantity < 6";
 
 if ($conn->query($sql) === TRUE) {
     $response = array("status" => "success");
