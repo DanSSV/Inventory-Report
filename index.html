@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inventory Report | SamanthaJM</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/e96c3f3ee3.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="icon" href="/img/icon.svg" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Inventory Report</h2>
+          <form>
+            <div class="form-group">
+              <label for="fromDate">From:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="fromDate"
+                name="fromDate"
+              />
+            </div>
+            <div class="form-group">
+              <label for="toDate">To:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="toDate"
+                name="toDate"
+              />
+            </div>
+            <button type="button" class="btn btn-success" onclick="getData()">
+              Submit
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="printTable()"
+            >
+              Print Table
+            </button>
+            <button class="btn btn-danger" id="reorderBtn">Re-order</button>
+          </form>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Product Name</th>
+                  <th>Expiration Date</th>
+                  <th>Stock</th>
+                  <th>Brand</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript"></script>
+    <script src="js/script.js"></script>
+    <script>
+      $("#reorderBtn").click(function () {
+        reorder();
+      });
+
+      function reorder() {
+        $.ajax({
+          url: "reorder.php",
+          method: "GET",
+          dataType: "json",
+          success: function (data) {
+            if (data.status === "success") {
+              alert("Re-order successful");
+              getData();
+            } else {
+              alert("Re-order failed");
+            }
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
