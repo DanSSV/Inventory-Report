@@ -1,8 +1,8 @@
 <?php
-$servername = "127.0.0.1";
+$servername = "localhost";
 $username = "root";
-$password = "apol09212001";
-$dbname = "stocks";
+$password = "";
+$dbname = "sale";
 
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 $fromDate = $_POST["fromDate"];
 $toDate = $_POST["toDate"];
 
-$sql = "SELECT * FROM product WHERE expiration BETWEEN '$fromDate' AND '$toDate'";
+$sql = "SELECT * FROM products WHERE expiration BETWEEN '$fromDate' AND '$toDate'";
 $result = $conn->query($sql);
 
 $data = array();
