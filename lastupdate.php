@@ -10,7 +10,7 @@ $current_time = time();
 
 $time_limit = strtotime('-6 months', $current_time);
 
-$sql = "UPDATE product SET status = 2 WHERE last_updated < '$time_limit'";
+$sql = "UPDATE product SET status = 'Discontinued' WHERE last_updated < '$time_limit'";
 
 if (!$mysqli->query($sql)) {
     echo "Error updating data: " . $mysqli->error;
