@@ -9,7 +9,7 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 $current_date = date("Y-m-d");
-$sql = "UPDATE product SET last_update='$current_date'";
+$sql = "UPDATE brand SET last_update='$current_date'";
 if (!$mysqli->query($sql)) {
     echo "Error updating record: " . $mysqli->error;
 }
